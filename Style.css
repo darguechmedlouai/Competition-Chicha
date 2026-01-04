@@ -281,3 +281,14 @@ input:focus, select:focus, textarea:focus{
   .banner-text h2{ font-size:28px; }
   .banner-text{ left:20px; right:20px; }
 }
+@media (max-width:480px){
+  .header{ flex-direction:column; align-items:flex-start; }
+  .brand h1{ font-size:16px; }
+  .banner img{ height:200px; }
+}
+@media (max-width:350px){
+  .banner-text h2{ font-size:22px; }
+}
+@media (max-width:320px){
+  .badge{ padding:6px 10px; font-size:12px; }
+}
