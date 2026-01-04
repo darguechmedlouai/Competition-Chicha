@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inscription — Compétition Chicha</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+
+<div class="side-item" style="margin-top:12px;">
+  <img src="images/trophy.png" alt="PDF">
+  <div>
+    <b>Cahier des charges (PDF)</b>
+    <p style="margin-top:4px;">Télécharge et respecte les règles officielles.</p>
+    <a class="btn" href="cahier_de_charge_participants_chicha_pro.pdf" download>
+      Télécharger le cahier des charges
+    </a>
+  </div>
+</div>
+
+<body>
+  <div class="container">
+
+    <div class="header">
+      <div class="brand">
+        <img src="images/logo.png" alt="Logo">
+        <div>
+          <h1>Chicha Competition</h1>
+          <p>Inscription officielle</p>
+        </div>
+      </div>
+      <div class="badge">Formulaire sécurisé</div>
+    </div>
+
+    <div class="banner">
+      <img src="images/banner.jpg" alt="Banner">
+      <div class="banner-text">
+        <h2>Inscription</h2>
+        <p>Remplis tes informations. Vérifie bien avant d’envoyer.</p>
+      </div>
+    </div>
+
+    <div class="grid">
+
+      <div class="card">
+        <h3>Formulaire d’inscription</h3>
+        <p>Merci de compléter correctement tous les champs obligatoires *</p>
+
+        <form class="form" action="#" method="POST">
+
+          <div>
+            <label>Nom *</label>
+            <input type="text" name="nom" required>
+          </div>
+
+          <div>
+            <label>Prénom *</label>
+            <input type="text" name="prenom" required>
+          </div>
+
+          <div>
+            <label>Date de naissance *</label>
+            <input type="date" name="date_naissance" required>
+          </div>
+
+          <div>
+            <label>Email *</label>
+            <input type="email" name="email" required>
+          </div>
+
+          <div class="full">
+            <label>Statut *</label>
+            <select name="statut" required>
+              <option value="">— Choisir —</option>
+              <option value="participant">Participant</option>
+              <option value="jury">Jury</option>
+              <option value="spectateur">Spectateur</option>
+            </select>
+          </div>
+
+          <div class="full">
+            <label>Arrivée sur place ? *</label>
+            <div class="radioRow">
+              <label><input type="radio" name="arrivee" value="oui" required> Oui</label>
+              <label><input type="radio" name="arrivee" value="non" required> Non</label>
+            </div>
+          </div>
+
+          <div class="full">
+            <label>Remarque (optionnel)</label>
+            <textarea name="remarque" placeholder="Ex : allergies, info utile..."></textarea>
+          </div>
+
+          <button class="btn1" type="submit">Envoyer l’inscription</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <h3>Infos rapides</h3>
+        <p>Important pour l’événement :</p>
+
+        <div class="side-list">
+          <div class="side-item">
+            <img src="images/smoke.png" alt="Smoke">
+            <div>
+              <b>Qualité & stabilité</b>
+              <p style="margin-top:4px;">Goût stable + vapeur + propreté.</p>
+            </div>
+          </div>
+
+          <div class="side-item">
+            <img src="images/trophy.png" alt="Trophy">
+            <div>
+              <b>Compétition officielle</b>
+              <p style="margin-top:4px;">Respect des règles et du cahier des charges.</p>
+            </div>
+          </div>
+        </div>
+
+        <a class="btn" href="satisfaction.html">Aller à Satisfaction</a>
+      </div>
+
+    </div>
+
+    <div class="footer">
+      <a href="index.html" style="color:#e4c85f; font-weight:800;">← Retour Accueil</a>
+    </div>
+
+  </div>
+</body>
+</html>
