@@ -1,18 +1,20 @@
-<!DOCTYPE html>
-<html lang="fr">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Inscription — Compétition Chicha</title>
+
+  <link rel="icon" type="image/png" href="chicha-celeste-black-edition-removebg-preview.ico">
+
   <link rel="stylesheet" href="style.css"/>
-</head> 
+</head>
+
 
 <div class="side-item" style="margin-top:12px;">
   <img src="trophy.png" alt="PDF">
   <div>
     <b>Cahier des charges (PDF)</b>
     <p style="margin-top:4px;">Télécharge et respecte les règles officielles.</p>
-    <a class="btn" href="cahier_de_charge_participants_chicha_pro.pdf" download>
+    <a class="btn" href="cahier_de_charge_chicha_pro.pdf" download>
       Télécharger le cahier des charges
     </a>
   </div>
@@ -46,53 +48,55 @@
         <h3>Formulaire d’inscription</h3>
         <p>Merci de compléter correctement tous les champs obligatoires *</p>
 
-        <form class="form" action="#" method="POST">
+        <form class="form" name="inscription" method="POST" data-netlify="true">
+  <input type="hidden" name="form-name" value="inscription">
 
-          <div>
-            <label>Nom *</label>
-            <input type="text" name="nom" required>
-          </div>
+  <div>
+    <label>Nom *</label>
+    <input type="text" name="nom" required>
+  </div>
 
-          <div>
-            <label>Prénom *</label>
-            <input type="text" name="prenom" required>
-          </div>
+  <div>
+    <label>Prénom *</label>
+    <input type="text" name="prenom" required>
+  </div>
 
-          <div>
-            <label>Date de naissance *</label>
-            <input type="date" name="date_naissance" required>
-          </div>
+  <div>
+    <label>Date de naissance *</label>
+    <input type="date" name="date_naissance" required>
+  </div>
 
-          <div>
-            <label>Email *</label>
-            <input type="email" name="email" required>
-          </div>
+  <div>
+    <label>Email *</label>
+    <input type="email" name="email" required>
+  </div>
 
-          <div class="full">
-            <label>Statut *</label>
-            <select name="statut" required>
-              <option value="">— Choisir —</option>
-              <option value="participant">Participant</option>
-              <option value="jury">Jury</option>
-              <option value="spectateur">Spectateur</option>
-            </select>
-          </div>
+  <div class="full">
+    <label>Statut *</label>
+    <select name="statut" required>
+      <option value="">— Choisir —</option>
+      <option value="participant">Participant</option>
+      <option value="jury">Jury</option>
+      <option value="spectateur">Spectateur</option>
+    </select>
+  </div>
 
-          <div class="full">
-            <label>Arrivée sur place ? *</label>
-            <div class="radioRow">
-              <label><input type="radio" name="arrivee" value="oui" required> Oui</label>
-              <label><input type="radio" name="arrivee" value="non" required> Non</label>
-            </div>
-          </div>
+  <div class="full">
+    <label>Arrivée sur place ? *</label>
+    <div class="radioRow">
+      <label><input type="radio" name="arrivee" value="oui" required> Oui</label>
+      <label><input type="radio" name="arrivee" value="non" required> Non</label>
+    </div>
+  </div>
 
-          <div class="full">
-            <label>Remarque (optionnel)</label>
-            <textarea name="remarque" placeholder="Ex : allergies, info utile..."></textarea>
-          </div>
+  <div class="full">
+    <label>Remarque (optionnel)</label>
+    <textarea name="remarque" placeholder="Ex : allergies, info utile..."></textarea>
+  </div>
 
-          <button class="btn1" type="submit">Envoyer l’inscription</button>
-        </form>
+  <button class="btn1" type="submit">Envoyer l’inscription</button>
+</form>
+
       </div>
 
       <div class="card">

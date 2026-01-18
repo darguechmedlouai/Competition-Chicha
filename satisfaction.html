@@ -4,6 +4,8 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Satisfaction — Compétition Chicha</title>
+    <link rel="icon" type="image/png" href="chicha-celeste-black-edition-removebg-preview.ico">
+
   <link rel="stylesheet" href="style.css"/>
 </head>
 
@@ -35,65 +37,67 @@
         <h3>Questionnaire</h3>
         <p>Merci de répondre honnêtement.</p>
 
-        <form class="form" action="#" method="POST">
+        <form class="form" name="satisfaction" method="POST" data-netlify="true">
+  <input type="hidden" name="form-name" value="satisfaction">
 
-          <div class="full">
-            <label>1) Satisfaction générale *</label>
-            <select name="satisfaction" required>
-              <option value="">— Choisir —</option>
-              <option value="1">⭐ 1 (Mauvais)</option>
-              <option value="2">⭐ 2</option>
-              <option value="3">⭐ 3 (Moyen)</option>
-              <option value="4">⭐ 4</option>
-              <option value="5">⭐ 5 (Excellent)</option>
-            </select>
-          </div>
+  <div class="full">
+    <label>1) Satisfaction générale *</label>
+    <select name="satisfaction" required>
+      <option value="">— Choisir —</option>
+      <option value="1">⭐ 1 (Mauvais)</option>
+      <option value="2">⭐ 2</option>
+      <option value="3">⭐ 3 (Moyen)</option>
+      <option value="4">⭐ 4</option>
+      <option value="5">⭐ 5 (Excellent)</option>
+    </select>
+  </div>
 
-          <div>
-            <label>2) Organisation *</label>
-            <select name="organisation" required>
-              <option value="">— Choisir —</option>
-              <option value="tres_bien">Très bien</option>
-              <option value="bien">Bien</option>
-              <option value="moyen">Moyen</option>
-              <option value="mauvais">Mauvais</option>
-              <option value="tres_mauvais">Très mauvais</option>
-            </select>
-          </div>
+  <div>
+    <label>2) Organisation *</label>
+    <select name="organisation" required>
+      <option value="">— Choisir —</option>
+      <option value="tres_bien">Très bien</option>
+      <option value="bien">Bien</option>
+      <option value="moyen">Moyen</option>
+      <option value="mauvais">Mauvais</option>
+      <option value="tres_mauvais">Très mauvais</option>
+    </select>
+  </div>
 
-          <div>
-            <label>3) Ambiance *</label>
-            <select name="ambiance" required>
-              <option value="">— Choisir —</option>
-              <option value="tres_bonne">Très bonne</option>
-              <option value="bonne">Bonne</option>
-              <option value="moyenne">Moyenne</option>
-              <option value="mauvaise">Mauvaise</option>
-            </select>
-          </div>
+  <div>
+    <label>3) Ambiance *</label>
+    <select name="ambiance" required>
+      <option value="">— Choisir —</option>
+      <option value="tres_bonne">Très bonne</option>
+      <option value="bonne">Bonne</option>
+      <option value="moyenne">Moyenne</option>
+      <option value="mauvaise">Mauvaise</option>
+    </select>
+  </div>
 
-          <div class="full">
-            <label>4) Meilleur point</label>
-            <textarea name="aime" placeholder="Ce que tu as aimé..."></textarea>
-          </div>
+  <div class="full">
+    <label>4) Meilleur point</label>
+    <textarea name="aime" placeholder="Ce que tu as aimé..."></textarea>
+  </div>
 
-          <div class="full">
-            <label>5) À améliorer</label>
-            <textarea name="ameliorer" placeholder="Ce qu’on doit améliorer..."></textarea>
-          </div>
+  <div class="full">
+    <label>5) À améliorer</label>
+    <textarea name="ameliorer" placeholder="Ce qu’on doit améliorer..."></textarea>
+  </div>
 
-          <div class="full">
-            <label>6) Tu reviendrais ? *</label>
-            <select name="revenir" required>
-              <option value="">— Choisir —</option>
-              <option value="oui">Oui</option>
-              <option value="peut_etre">Peut-être</option>
-              <option value="non">Non</option>
-            </select>
-          </div> 
+  <div class="full">
+    <label>6) Tu reviendrais ? *</label>
+    <select name="revenir" required>
+      <option value="">— Choisir —</option>
+      <option value="oui">Oui</option>
+      <option value="peut_etre">Peut-être</option>
+      <option value="non">Non</option>
+    </select>
+  </div>
 
-          <button class="btn1" type="submit">Envoyer mon avis</button>
-        </form>
+  <button class="btn1" type="submit">Envoyer mon avis</button>
+</form>
+
       </div>
 
       <div class="card">
