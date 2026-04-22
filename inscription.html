@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inscription — Chicha Competition</title>
-    <link rel="icon" type="image/png" href="logo_premium.png">
+    <link rel="icon" type="image/png" href="chicha-celeste-black-edition-removebg-preview.ico">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
@@ -200,13 +200,24 @@
             }
         });
 
-        // 3D Tilt Effect
+        // 3D Tilt Effect - Désactivé sur mobile/tactile
         const card = document.querySelector('.form-card');
-        document.addEventListener('mousemove', (e) => {
-            const xAxis = (window.innerWidth / 2 - e.pageX) / 50;
-            const yAxis = (window.innerHeight / 2 - e.pageY) / 50;
-            card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-        });
+        const isTouchDevice = () => {
+            return (
+                (typeof window !== 'undefined' &&
+                    ('ontouchstart' in window ||
+                        navigator.maxTouchPoints > 0 ||
+                        navigator.msMaxTouchPoints > 0))
+            );
+        };
+        
+        if (!isTouchDevice()) {
+            document.addEventListener('mousemove', (e) => {
+                const xAxis = (window.innerWidth / 2 - e.pageX) / 50;
+                const yAxis = (window.innerHeight / 2 - e.pageY) / 50;
+                card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+            });
+        }
     </script>
 </body>
 </html>
