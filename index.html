@@ -1,54 +1,154 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Chicha Competition — Accueil</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chicha Competition — L'Élite de la Vapeur</title>
     <link rel="icon" type="image/png" href="chicha-celeste-black-edition-removebg-preview.ico">
-
-  <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
-
 <body>
-  <div class="container">
 
-    <div class="header">
-      <div class="brand">
-        <img src="logo.png" alt="Logo">
-        <div>
-          <h1>Chicha Competition</h1>
-          <p>Plateforme officielle</p>
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-bg">
+            <img src="hero_chicha.jpg" alt="Chicha Premium Background">
         </div>
-      </div>
-      <div class="badge">Édition 2026</div>
-    </div>
+        <div class="hero-overlay"></div>
+        <canvas id="smoke-canvas"></canvas>
+        
+        <div class="hero-content animate-fade">
+            <img src="logo_premium.png" alt="Logo" style="width: 120px; margin-bottom: 20px;">
+            <h1>L'Art de la <span>Chicha</span></h1>
+            <p>Rejoignez la compétition internationale la plus prestigieuse.    Un événement où l'élégance rencontre la maîtrise technique.</p>
+            <div class="hero-btns">
+                <a href="inscription.html" class="btn btn-primary">S'inscrire Maintenant</a>
+                <a href="#marketing" class="btn btn-outline" style="margin-left: 15px;">Découvrir</a>
+            </div>
+        </div>
+    </header>
 
-    <div class="banner">
-      <img src="banner.jpg" alt="Banner">
-      <div class="banner-text">
-        <h2>Bienvenue 🔥</h2>
-        <p>Choisis ton formulaire : inscription ou enquête de satisfaction.</p>
-      </div>
-    </div>
+    <!-- Marketing Section -->
+    <section id="marketing" class="container">
+        <div class="section-title">
+            <h2>Pourquoi Participer ?</h2>
+            <div class="underline"></div>
+        </div>
+        
+        <div class="marketing-grid">
+            <div class="m-card glass">
+                <i class="fas fa-trophy"></i>
+                <h3>Prestige Mondial</h3>
+                <p>Affrontez les meilleurs préparateurs et gagnez une reconnaissance internationale dans l'industrie.</p>
+            </div>
+            <div class="m-card glass">
+                <i class="fas fa-gem"></i>
+                <h3>Prix Exceptionnels</h3>
+                <p>Un événement soutenu par des partenariats prestigieux et des marques leaders.</p>
+            </div>
+            <div class="m-card glass">
+                <i class="fas fa-users"></i>
+                <h3>Networking Elite</h3>
+                <p>Rencontrez les influenceurs, les propriétaires de lounges et les experts du monde entier.</p>
+            </div>
+        </div>
+    </section>
 
-    <div class="grid">
+    <!-- Ambiance Section -->
+    <section class="container">
+        <div class="glass" style="display: flex; flex-wrap: wrap; overflow: hidden; align-items: center;">
+            <div style="flex: 1; min-width: 300px; padding: 60px;">
+                <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Une Ambiance <span>Luxe</span></h2>
+                <p style="color: var(--muted); margin-bottom: 30px;">Plongez dans un univers menthe verte et dark luxe. Un cadre conçu pour sublimer chaque session et offrir une expérience sensorielle unique.</p>
+                <a href="satisfaction.html" class="btn btn-outline">Voir les avis</a>
+            </div>
+            <div style="flex: 1; min-width: 300px; height: 400px;">
+                <img src="ambiance_chicha.png" alt="Ambiance" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+        </div>
+    </section>
+        <footer>
+            <div class="container">
+                <img src="logo_premium.png" alt="Logo" class="footer-logo">
+                <p>© 2026 Compétition Chicha — L'excellence au service de la vapeur.</p>
+                
+                <div style="margin-top: 20px;">
+                    <a href="https://www.instagram.com/chichacompetition/" target="_blank" 
+                    style="color: var(--accent); margin: 0 10px; font-size: 22px;">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+        </footer>
 
-      <div class="card">
-        <h3>Inscription</h3>
-        <p>Inscris-toi en tant que participant, jury ou spectateur.</p>
-        <a class="btn" href="inscription.html">Ouvrir Inscription</a>
-      </div>
-
-      <div class="card">
-        <h3>Satisfaction</h3>
-        <p>Donne ton avis après l’événement pour améliorer la prochaine édition.</p>
-        <a class="btn" href="satisfaction.html">Ouvrir Satisfaction</a>
-      </div>
-
-    </div>
-
-    <div class="footer">© Compétition Chicha — Site officiel</div>
-  </div>
+    <!-- Smoke Animation Script -->
+    <script>
+        const canvas = document.getElementById('smoke-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        let width, height;
+        let particles = [];
+        
+        function init() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        
+        window.addEventListener('resize', init);
+        init();
+        
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+            
+            reset() {
+                this.x = Math.random() * width;
+                this.y = height + Math.random() * 100;
+                this.size = Math.random() * 100 + 50;
+                this.speedY = Math.random() * 1 + 0.5;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.opacity = Math.random() * 0.5;
+                this.color = `rgba(0, 255, 157, ${this.opacity})`;
+            }
+            
+            update() {
+                this.y -= this.speedY;
+                this.x += this.speedX;
+                this.opacity -= 0.002;
+                
+                if (this.opacity <= 0 || this.y < -this.size) {
+                    this.reset();
+                }
+            }
+            
+            draw() {
+                ctx.beginPath();
+                let gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size);
+                gradient.addColorStop(0, `rgba(0, 255, 157, ${this.opacity})`);
+                gradient.addColorStop(1, 'rgba(0, 255, 157, 0)');
+                ctx.fillStyle = gradient;
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        
+        for (let i = 0; i < 40; i++) {
+            particles.push(new Particle());
+        }
+        
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+        
+        animate();
+    </script>
 </body>
 </html>
-          

@@ -1,145 +1,247 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Satisfaction — Compétition Chicha</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satisfaction — Chicha Competition</title>
+    <link rel="icon" type="image/png" href="logo_premium.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        .nav-back {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            z-index: 100;
+        }
+        .rating-group {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            gap: 10px;
+        }
+        .rating-item {
+            flex: 1;
+            text-align: center;
+            padding: 20px 10px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+        .rating-item:hover, .rating-item.active {
+            background: rgba(0, 255, 157, 0.1);
+            border-color: var(--accent);
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 255, 157, 0.2);
+        }
+        .rating-item i {
+            font-size: 1.8rem;
+            display: block;
+            margin-bottom: 10px;
+            color: var(--accent);
+            transition: transform 0.3s ease;
+        }
+        .rating-item.active i {
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 10px var(--accent));
+        }
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 60px;
+        }
+        .success-message i {
+            font-size: 5rem;
+            color: var(--accent);
+            margin-bottom: 25px;
+            filter: drop-shadow(0 0 20px var(--accent));
+        }
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            backdrop-filter: blur(15px);
+        }
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(0, 255, 157, 0.1);
+            border-top: 4px solid var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-  <link rel="icon" type="image/png" href="chicha-celeste-black-edition-removebg-preview.ico">
-  <link rel="stylesheet" href="style.css"/>
+        .form-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 60px;
+        }
+    </style>
 </head>
-
 <body>
-  <div class="container">
 
-    <div class="header">
-      <div class="brand">
-        <img src="logo.png" alt="Logo">
-        <div>
-          <h1>Chicha Competition</h1>
-          <p>Enquête de satisfaction</p>
+    <img src="bg_satisfaction.jpg" class="page-bg" alt="Background">
+    <div class="page-overlay"></div>
+
+    <div class="loading-overlay" id="loader">
+        <div class="spinner"></div>
+        <p style="margin-top: 20px; letter-spacing: 3px; font-weight: 700; color: var(--accent);">ANALYSE DE VOTRE EXPÉRIENCE...</p>
+    </div>
+
+    <div class="nav-back">
+        <a href="index.html" class="btn btn-outline" style="padding: 12px 24px; backdrop-filter: blur(10px);"><i class="fas fa-arrow-left"></i> Retour</a>
+    </div>
+
+    <section style="padding-top: 80px; min-height: 100vh; display: flex; align-items: center;">
+        <div class="container">
+            
+            <div class="glass form-card form-container animate-fade">
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <h2 style="font-size: 2.5rem; text-transform: uppercase; letter-spacing: 3px;">Votre <span>Verdict</span></h2>
+                    <p style="color: var(--muted); margin-top: 10px;">Aidez-nous à définir les standards de demain.</p>
+                    <div class="underline" style="margin: 20px auto;"></div>
+                </div>
+
+                <form id="satisfaction-form" action="https://usebasin.com/f/98a6b2e12044" method="POST">
+                    <input type="hidden" name="_subject" value="Nouvelle satisfaction — Compétition Chicha">
+                    
+                    <div class="form-group">
+                        <label style="text-align: center; display: block; margin-bottom: 20px;">Satisfaction Globale</label>
+                            <div class="rating-group">
+                                <div class="rating-item" onclick="setRating('satisfaction', 1)">
+                                    <i class="far fa-star"></i> 1
+                                </div>
+                                <div class="rating-item" onclick="setRating('satisfaction', 2)">
+                                    <i class="far fa-star"></i> 2
+                                </div>
+                                <div class="rating-item" onclick="setRating('satisfaction', 3)">
+                                    <i class="far fa-star"></i> 3
+                                </div>
+                                <div class="rating-item" onclick="setRating('satisfaction', 4)">
+                                    <i class="far fa-star"></i> 4
+                                </div>
+                                <div class="rating-item" onclick="setRating('satisfaction', 5)">
+                                    <i class="far fa-star"></i> 5
+                                </div>
+                            </div>
+                        <input type="hidden" name="satisfaction" id="satisfaction-input" required>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 30px;">
+                        <div class="form-group input-animated">
+                            <label><i class="fas fa-cogs"></i> Organisation</label>
+                            <select name="organisation" required>
+                                <option value="" disabled selected>Notez l'organisation</option>
+                                <option value="excellent">Excellent</option>
+                                <option value="tres_bien">Très bien</option>
+                                <option value="bien">Bien</option>
+                                <option value="moyen">Moyen</option>
+                            </select>
+                        </div>
+                        <div class="form-group input-animated">
+                            <label><i class="fas fa-palette"></i> Ambiance & Design</label>
+                            <select name="ambiance" required>
+                                <option value="" disabled selected>Notez l'ambiance</option>
+                                <option value="exceptionnelle">Exceptionnelle</option>
+                                <option value="immersive">Immersive</option>
+                                <option value="correcte">Correcte</option>
+                                <option value="a_revoir">À revoir</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group input-animated" style="margin-top: 30px;">
+                        <label><i class="fas fa-comment-dots"></i> Ce que vous avez aimé</label>
+                        <textarea name="aime" rows="3" placeholder="Partagez vos points forts..."></textarea>
+                    </div>
+
+                    <div class="form-group input-animated" style="margin-top: 20px;">
+                        <label><i class="fas fa-tools"></i> Points d'amélioration</label>
+                        <textarea name="ameliorer" rows="3" placeholder="Comment pouvons-nous faire mieux ?"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 40px; font-size: 18px; text-transform: uppercase; letter-spacing: 2px;">
+                        Envoyer mon Feedback <i class="fas fa-paper-plane" style="margin-left: 10px;"></i>
+                    </button>
+                </form>
+
+                <div class="success-message" id="success-msg">
+                    <i class="fas fa-heart"></i>
+                    <h2 style="font-size: 2.5rem; margin-bottom: 15px;">Merci pour votre Vision</h2>
+                    <p style="color: var(--muted); font-size: 1.1rem;">Votre retour a été enregistré. Ensemble, nous créons l'excellence.</p>
+                    <a href="index.html" class="btn btn-primary" style="margin-top: 40px; padding: 15px 40px;">Retour au Lounge</a>
+                </div>
+            </div>
+
         </div>
-      </div>
-      <div class="badge">Merci 🙏</div>
-    </div>
+    </section>
 
-    <div class="banner">
-      <img src="banner.jpg" alt="Banner">
-      <div class="banner-text">
-        <h2>Satisfaction</h2>
-        <p>Ton avis améliore notre événement. Ça prend 1 minute.</p>
-      </div>
-    </div>
+    <script>
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxQNO7dbxjrf9jAeW3oI5MMJrxNCRCacqZlrTc0W8fnBto_9OQuOpUFkzBzdTMXuYvcig/exec";
+        const form = document.getElementById("satisfaction-form");
+        const loader = document.getElementById("loader");
+        const successMsg = document.getElementById("success-msg");
 
-    <div class="grid">
-      <div class="card">
-        <h3>Questionnaire</h3>
-        <p>Merci de répondre honnêtement.</p>
+        function setRating(name, value) {
+            document.getElementById(name + '-input').value = value;
+            const items = document.querySelectorAll('.rating-item');
+            items.forEach((item, index) => {
+                if (index < value) {
+                    item.classList.add('active');
+                    item.querySelector('i').className = 'fas fa-star';
+                } else {
+                    item.classList.remove('active');
+                    item.querySelector('i').className = 'far fa-star';
+                }
+            });
+        }
 
-        <form
-          action="https://usebasin.com/f/98a6b2e12044"
-          method="POST"
-          enctype="multipart/form-data"
-          id="form"
-        >
-          <input type="hidden" name="_subject" value="Nouvelle satisfaction — Compétition Chicha">
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            loader.style.display = "flex";
 
-          <div class="full">
-            <label>1) Satisfaction générale *</label>
-            <select name="satisfaction" required>
-              <option value="">— Choisir —</option>
-              <option value="1">⭐ 1 (Mauvais)</option>
-              <option value="2">⭐ 2</option>
-              <option value="3">⭐ 3 (Moyen)</option>
-              <option value="4">⭐ 4</option>
-              <option value="5">⭐ 5 (Excellent)</option>
-            </select>
-          </div>
+            const formData = new FormData(form);
 
-          <div>
-            <label>2) Organisation *</label>
-            <select name="organisation" required>
-              <option value="">— Choisir —</option>
-              <option value="tres_bien">Très bien</option>
-              <option value="bien">Bien</option>
-              <option value="moyen">Moyen</option>
-              <option value="mauvais">Mauvais</option>
-              <option value="tres_mauvais">Très mauvais</option>
-            </select>
-          </div>
+            try {
+                await fetch(WEB_APP_URL, {
+                    method: "POST",
+                    body: formData
+                });
+                
+                await fetch(form.action, {
+                    method: "POST",
+                    body: formData,
+                    headers: { 'Accept': 'application/json' }
+                });
 
-          <div>
-            <label>3) Ambiance *</label>
-            <select name="ambiance" required>
-              <option value="">— Choisir —</option>
-              <option value="tres_bonne">Très bonne</option>
-              <option value="bonne">Bonne</option>
-              <option value="moyenne">Moyenne</option>
-              <option value="mauvaise">Mauvaise</option>
-            </select>
-          </div>
-
-          <div class="full">
-            <label>4) Meilleur point</label>
-            <textarea name="aime" placeholder="Ce que tu as aimé..."></textarea>
-          </div>
-
-          <div class="full">
-            <label>5) À améliorer</label>
-            <textarea name="ameliorer" placeholder="Ce qu’on doit améliorer..."></textarea>
-          </div>
-
-          <div class="full">
-            <label>6) Tu reviendrais ? *</label>
-            <select name="revenir" required>
-              <option value="">— Choisir —</option>
-              <option value="oui">Oui</option>
-              <option value="peut_etre">Peut-être</option>
-              <option value="non">Non</option>
-            </select>
-          </div>
-
-          <button class="btn" type="submit">Envoyer mon avis</button>
-        </form>
-      </div>
-
-      <div class="card">
-        <h3>Merci ❤️</h3>
-        <p>Ton avis nous aide à rendre l’événement plus pro.</p>
-        <a class="btn" href="index.html">Retour Accueil</a>
-      </div>
-    </div>
-
-    <div class="footer">
-      © Compétition Chicha — Enquête officielle
-    </div>
-
-  </div>
-
-  <!-- SCRIPT FINAL -->
-  <script>
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxQNO7dbxjrf9jAeW3oI5MMJrxNCRCacqZlrTc0W8fnBto_9OQuOpUFkzBzdTMXuYvcig/exec";
-    const form = document.getElementById("form");
-
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      const fd = new FormData(form);
-
-      try {
-        await fetch(WEB_APP_URL, {
-          method: "POST",
-          body: fd
+                loader.style.display = "none";
+                form.style.display = "none";
+                successMsg.style.display = "block";
+                
+            } catch (err) {
+                console.error("Erreur", err);
+                form.submit();
+            }
         });
-      } catch (err) {
-        console.error("Erreur Apps Script", err);
-      }
 
-      // Laisser ensuite UseBasin recevoir
-      setTimeout(() => {
-        form.submit();
-      }, 10);
-    });
-  </script>
+        // 3D Tilt Effect
+        const card = document.querySelector('.form-card');
+        document.addEventListener('mousemove', (e) => {
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 60;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 60;
+            card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        });
+    </script>
 </body>
 </html>
