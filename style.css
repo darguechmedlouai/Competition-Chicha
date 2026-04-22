@@ -820,3 +820,112 @@ footer {
     user-select: none;
   }
 }
+/* ===================== MOBILE RESPONSIVE FIX ONLY ===================== */
+@media (max-width: 768px) {
+
+  /* Empêcher débordements */
+  body {
+    overflow-x: hidden;
+  }
+
+  /* Sections spacing */
+  section {
+    padding: 60px 0;
+  }
+
+  /* Hero adaptation mobile */
+  .hero {
+    height: auto;
+    min-height: 100svh;
+    padding: 80px 0;
+  }
+
+  .hero-content {
+    padding: 20px 15px;
+  }
+
+  .hero h1 {
+    letter-spacing: -1px;
+  }
+
+  /* Titres */
+  .section-title h2 {
+    font-size: 2rem;
+  }
+
+  /* Grilles en colonne */
+  .marketing-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  /* Cards */
+  .m-card {
+    padding: 25px;
+  }
+
+  /* Formulaire */
+  .form-container {
+    padding: 25px 15px;
+  }
+
+  .form-card {
+    transform: none !important;
+  }
+
+  /* Désactiver effets hover sur mobile */
+  .form-card:hover {
+    transform: none !important;
+  }
+
+  .m-card:hover {
+    transform: none !important;
+  }
+
+  /* Inputs plus confortables mobile */
+  input,
+  select,
+  textarea {
+    font-size: 16px; /* évite zoom iPhone */
+  }
+
+  /* Boutons tactiles */
+  .btn {
+    width: 100%;
+    padding: 14px 20px;
+  }
+
+  /* Labels plus lisibles */
+  label {
+    font-size: 12px;
+  }
+
+  /* Améliorer scroll spacing */
+  .container {
+    width: 92%;
+  }
+}
+
+@media (max-width: 480px) {
+
+  /* Ajustement petits écrans */
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero p {
+    font-size: 0.95rem;
+  }
+
+  .section-title h2 {
+    font-size: 1.6rem;
+  }
+
+  .m-card {
+    padding: 20px;
+  }
+
+  section {
+    padding: 50px 0;
+  }
+}
