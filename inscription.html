@@ -177,13 +177,20 @@
 
             const formData = new FormData(form);
 
+            // Construire les paramètres URL pour les scripts Google
+            const params = new URLSearchParams();
+            for (const [key, value] of formData.entries()) {
+                params.append(key, value);
+            }
+
             try {
-                // Google Sheets
+                // Google Sheets (no-cors obligatoire pour script.google.com)
                 await fetch(WEB_APP_URL, {
                     method: "POST",
-                    body: formData
+                    body: params,
+                    mode: "no-cors"
                 });
-                
+
                 // UseBasin
                 await fetch(form.action, {
                     method: "POST",
@@ -191,16 +198,17 @@
                     headers: { 'Accept': 'application/json' }
                 });
 
-                // Email de confirmation (rôle-specific)
+                // Email de confirmation (no-cors obligatoire pour script.google.com)
                 await fetch(EMAIL_APP_URL, {
                     method: "POST",
-                    body: formData
+                    body: params,
+                    mode: "no-cors"
                 });
 
                 loader.style.display = "none";
                 form.style.display = "none";
                 successMsg.style.display = "block";
-                
+
             } catch (err) {
                 console.error("Erreur", err);
                 form.submit();
