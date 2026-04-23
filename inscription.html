@@ -165,8 +165,8 @@
     </section>
 
     <script>
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxQNO7dbxjrf9jAeW3oI5MMJrxNCRCacqZlrTc0W8fnBto_9OQuOpUFkzBzdTMXuYvcig/exec";
-        const EMAIL_APP_URL = "https://script.google.com/macros/s/AKfycbym0Kih7DMJiHyZ0dkkODMfgNXaHFNHuVP1_Mi6Y0KfJ5v5IkKUQbjAmvy9Y2fDyAts/exec";
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyZR324aiAt1VUMoBHrNnfGONu0NTceRZJAvihhsL-GdFi_Ixkk0VkOExFKgV90YlhdkQ/exec";
+        const EMAIL_APP_URL = "https://script.google.com/macros/s/AKfycbw71MOrr0YAR3zbMJxb2i-wqxbHz7tMls0miPcD0gDmIA-QXkFtqqKUU_tnnxeRAxYU/exec";
         const form = document.getElementById("registration-form");
         const loader = document.getElementById("loader");
         const successMsg = document.getElementById("success-msg");
@@ -177,20 +177,13 @@
 
             const formData = new FormData(form);
 
-            // Construire les paramètres URL pour les scripts Google
-            const params = new URLSearchParams();
-            for (const [key, value] of formData.entries()) {
-                params.append(key, value);
-            }
-
             try {
-                // Google Sheets (no-cors obligatoire pour script.google.com)
+                // Google Sheets
                 await fetch(WEB_APP_URL, {
                     method: "POST",
-                    body: params,
-                    mode: "no-cors"
+                    body: formData
                 });
-
+                
                 // UseBasin
                 await fetch(form.action, {
                     method: "POST",
@@ -198,17 +191,16 @@
                     headers: { 'Accept': 'application/json' }
                 });
 
-                // Email de confirmation (no-cors obligatoire pour script.google.com)
+                // Email de confirmation (rôle-specific)
                 await fetch(EMAIL_APP_URL, {
                     method: "POST",
-                    body: params,
-                    mode: "no-cors"
+                    body: formData
                 });
 
                 loader.style.display = "none";
                 form.style.display = "none";
                 successMsg.style.display = "block";
-
+                
             } catch (err) {
                 console.error("Erreur", err);
                 form.submit();
