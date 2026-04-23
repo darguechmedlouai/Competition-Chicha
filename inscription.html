@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        .nav-back {
+        .nav-back { 
             position: fixed;
             top: 30px;
             left: 30px;
@@ -166,6 +166,7 @@
 
     <script>
         const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxQNO7dbxjrf9jAeW3oI5MMJrxNCRCacqZlrTc0W8fnBto_9OQuOpUFkzBzdTMXuYvcig/exec";
+        const EMAIL_APP_URL = "https://script.google.com/macros/s/AKfycbym0Kih7DMJiHyZ0dkkODMfgNXaHFNHuVP1_Mi6Y0KfJ5v5IkKUQbjAmvy9Y2fDyAts/exec";
         const form = document.getElementById("registration-form");
         const loader = document.getElementById("loader");
         const successMsg = document.getElementById("success-msg");
@@ -190,6 +191,12 @@
                     headers: { 'Accept': 'application/json' }
                 });
 
+                // Email de confirmation (rôle-specific)
+                await fetch(EMAIL_APP_URL, {
+                    method: "POST",
+                    body: formData
+                });
+
                 loader.style.display = "none";
                 form.style.display = "none";
                 successMsg.style.display = "block";
@@ -210,6 +217,7 @@
                         navigator.msMaxTouchPoints > 0))
             );
         };
+        
         
         if (!isTouchDevice()) {
             document.addEventListener('mousemove', (e) => {
