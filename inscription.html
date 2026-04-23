@@ -159,73 +159,183 @@
                     <p style="color: var(--muted); font-size: 1.1rem;">Votre demande a été transmise avec succès. Préparez-vous pour l'événement.</p>
                     <a href="index.html" class="btn btn-primary" style="margin-top: 40px; padding: 15px 40px;">Retour au Lounge</a>
                 </div>
+
+                        <div class="success-message" id="duplicate-msg">
+                            <i class="fas fa-user-check" style="color:#ff4b4b;"></i>
+                            <h2>Vous êtes déjà inscrit</h2>
+                            <p>Votre inscription existe déjà dans notre système.</p>
+                            <a href="index.html" class="btn btn-primary" style="margin-top:40px;">
+                                Retour
+                            </a>
+                        </div>
+                        <div class="success-message" id="email-msg">
+                                <i class="fas fa-circle-exclamation" style="color:#ffb020;"></i>
+                                <h2>Email invalide</h2>
+                                <p>Veuillez vérifier votre adresse email et réessayer.</p>
+                                <a href="javascript:location.reload()" class="btn btn-primary" style="margin-top:40px;">
+                                    Réessayer
+                                </a>
+                            </div>
             </div>
 
         </div>
+
     </section>
 
-    <script>
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyCJs-j7lp2L4XYH-Ra-PMEPlddtOWEM--vUGy04BZjzsrJV-8z8RqPOmtndDpObMuSlA/exec";
-        const EMAIL_APP_URL = "https://script.google.com/macros/s/AKfycbw71MOrr0YAR3zbMJxb2i-wqxbHz7tMls0miPcD0gDmIA-QXkFtqqKUU_tnnxeRAxYU/exec";
-        const form = document.getElementById("registration-form");
-        const loader = document.getElementById("loader");
-        const successMsg = document.getElementById("success-msg");
 
-        form.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            loader.style.display = "flex";
 
-            const formData = new FormData(form);
+<script>
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyh3NuizR3pRUp9tyn7EyTZei73fDhADRs89e3tmyfp7MpV41oE5_8P-xDez53R1FqdwA/exec";
+const EMAIL_APP_URL = "https://script.google.com/macros/s/AKfycbwHxLoTH3gBD6a6y-0FMFFphP3FWKxSn9My1bhd74zIx26sy_x3Nbxb_F6Wn0LYZlUL/exec";
 
-            try {
-                // Google Sheets
-                await fetch(WEB_APP_URL, {
-                    method: "POST",
-                    body: formData
-                });
-                
-                // UseBasin
-                await fetch(form.action, {
-                    method: "POST",
-                    body: formData,
-                    headers: { 'Accept': 'application/json' }
-                });
+const form = document.getElementById("registration-form");
+const loader = document.getElementById("loader");
+const successMsg = document.getElementById("success-msg");
+const duplicateMsg = document.getElementById("duplicate-msg");
+const emailMsg = document.getElementById("email-msg");
 
-                // Email de confirmation (rôle-specific)
-                await fetch(EMAIL_APP_URL, {
-                    method: "POST",
-                    body: formData
-                });
+// =========================
+// EMAIL VALIDATION
+// =========================
+function isValidEmail(email) {
+    if (!email) return false;
 
-                loader.style.display = "none";
-                form.style.display = "none";
-                successMsg.style.display = "block";
-                
-            } catch (err) {
-                console.error("Erreur", err);
-                form.submit();
-            }
+    email = email.trim().toLowerCase();
+
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!regex.test(email)) return false;
+
+    const [name] = email.split("@");
+
+    if (name.length < 2) return false;
+    if (name.length > 30) return false;
+
+    const digits = (name.match(/\d/g) || []).length;
+    if (digits > 8) return false;
+
+    return true;
+}
+
+// =========================
+// RESET UI
+// =========================
+function resetUI() {
+    successMsg.style.display = "none";
+    duplicateMsg.style.display = "none";
+    emailMsg.style.display = "none";
+}
+
+form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    resetUI();
+
+    const formData = new FormData(form);
+
+    // 🔥 IMPORTANT FIX (normalisation email)
+    const email = formData.get("email").trim().toLowerCase();
+
+    // ❌ EMAIL INVALID
+    if (!isValidEmail(email)) {
+        loader.style.display = "none";
+        form.style.display = "block";
+
+        emailMsg.innerHTML = `
+            <i class="fas fa-times-circle" style="color:#ff4b4b;"></i>
+            <h2>Email invalide</h2>
+            <p>Veuillez vérifier votre adresse email et réessayer.</p>
+        `;
+
+        emailMsg.style.display = "block";
+        return;
+    }
+
+    loader.style.display = "flex";
+
+    try {
+
+        const res = await fetch(WEB_APP_URL, {
+            method: "POST",
+            body: formData
         });
 
-        // 3D Tilt Effect - Désactivé sur mobile/tactile
-        const card = document.querySelector('.form-card');
-        const isTouchDevice = () => {
-            return (
-                (typeof window !== 'undefined' &&
-                    ('ontouchstart' in window ||
-                        navigator.maxTouchPoints > 0 ||
-                        navigator.msMaxTouchPoints > 0))
-            );
-        };
-        
-        
-        if (!isTouchDevice()) {
-            document.addEventListener('mousemove', (e) => {
-                const xAxis = (window.innerWidth / 2 - e.pageX) / 50;
-                const yAxis = (window.innerHeight / 2 - e.pageY) / 50;
-                card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-            });
+        const text = await res.text();
+
+        loader.style.display = "none";
+
+        // ❌ PHONE INVALID
+        if (text === "invalid phone") {
+            alert("❌ Numéro de téléphone invalide");
+            return;
         }
-    </script>
+
+        // ❌ DUPLICATE
+        if (text === "duplicate") {
+            form.style.display = "none";
+            duplicateMsg.style.display = "block";
+            return;
+        }
+
+        // ❌ SERVER ERROR
+        if (text !== "ok inscription") {
+            alert("❌ Erreur serveur, veuillez réessayer.");
+            return;
+        }
+
+        // 📩 BASIN
+        await fetch(form.action, {
+            method: "POST",
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+        });
+
+        // 📧 EMAIL
+        await fetch(EMAIL_APP_URL, {
+            method: "POST",
+            body: formData
+        });
+
+        form.style.display = "none";
+        successMsg.style.display = "block";
+
+    } catch (err) {
+        loader.style.display = "none";
+        alert("❌ Problème réseau, veuillez réessayer.");
+    }
+});
+
+// =========================
+// 🎯 3D EFFECT (SAFE MOBILE)
+// =========================
+const card = document.querySelector('.form-card');
+
+const isTouchDevice = () => {
+    return (
+        ('ontouchstart' in window) ||
+        navigator.maxTouchPoints > 0
+    );
+};
+
+if (!isTouchDevice() && card) {
+    document.addEventListener('mousemove', (e) => {
+        const xAxis = (window.innerWidth / 2 - e.pageX) / 50;
+        const yAxis = (window.innerHeight / 2 - e.pageY) / 50;
+        card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+    });
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
 </body>
 </html>
